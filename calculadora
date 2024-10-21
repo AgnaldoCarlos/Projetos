@@ -1,0 +1,125 @@
+// Meu primeiro código html
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Calculadora</title>
+    <style>
+        body {
+            background-color: rgb(93, 187, 250);
+        }
+        #corpo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #display {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="corpo">
+        <div id="display">0</div>
+
+        <div>
+            <button onclick="setarLimp()">LIMPAR</button>
+        </div>
+
+        <div>
+            <button onclick="setarNumero(9)">9</button>
+            <button onclick="setarNumero(8)">8</button>
+            <button onclick="setarNumero(7)">7</button>
+        </div>
+
+        <div>
+            <button onclick="setarNumero(6)">6</button>
+            <button onclick="setarNumero(5)">5</button>
+            <button onclick="setarNumero(4)">4</button>
+        </div>
+
+        <div>
+            <button onclick="setarNumero(3)">3</button>
+            <button onclick="setarNumero(2)">2</button>
+            <button onclick="setarNumero(1)">1</button>
+        </div>
+
+        <div>
+            <button onclick="setarNumero(0)">0</button>
+        </div>
+
+        <div>
+            <button onclick="definirOperacao('+')">+</button>
+            <button onclick="definirOperacao('-')">-</button>
+            <button onclick="definirOperacao('*')">x</button>
+            <button onclick="definirOperacao('/')">/</button>
+        </div>
+
+        <div>
+            <button onclick="calcular()">Resultado</button>
+        </div>
+    </div>
+
+    <script>
+        let numeroAtual = '';
+        let numeroAnterior = '';
+        let operacao = '';
+        const tagDisplay = document.getElementById("display");
+
+        function atualizarDisplay(valor) {
+            tagDisplay.innerText = valor;
+        }
+
+        function setarLimp() {
+            numeroAtual = '';
+            numeroAnterior = '';
+            operacao = '';
+            atualizarDisplay('0');
+        }
+
+        function setarNumero(numero) {
+            numeroAtual += numero;
+            atualizarDisplay(numeroAtual);
+        }
+
+        function definirOperacao(op) {
+            if (numeroAtual === '') return;
+            operacao = op;
+            numeroAnterior = numeroAtual;
+            numeroAtual = '';
+        }
+
+        function calcular() {
+            if (numeroAtual === '' || numeroAnterior === '' || operacao === '') return;
+
+            let resultado;
+            const num1 = parseFloat(numeroAnterior);
+            const num2 = parseFloat(numeroAtual);
+
+            switch (operacao) {
+                case '+':
+                    resultado = num1 + num2;
+                    break;
+                case '-':
+                    resultado = num1 - num2;
+                    break;
+                case '*':
+                    resultado = num1 * num2;
+                    break;
+                case '/':
+                    resultado = num1 / num2;
+                    break;
+                default:
+                    return;
+            }
+
+            atualizarDisplay(resultado);
+            numeroAtual = resultado.toString();
+            operacao = '';
+            numeroAnterior = '';
+        }
+    </script>
+</body>
+</html>
